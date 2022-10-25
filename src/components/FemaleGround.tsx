@@ -23,12 +23,28 @@ type GLTFResult = GLTF & {
 	};
 };
 
-export function Female(props: JSX.IntrinsicElements["group"]) {
+export function FemaleGround(props: JSX.IntrinsicElements["group"]) {
 	const { nodes, materials } = useGLTF(
 		"female_marble_statue_polished_but_old.glb"
 	) as unknown as GLTFResult;
 
 
+	const [
+		womanTextureDiff,
+		womanTextureDisp,
+		womanTextureRough,
+		womanNormalMap,
+	] = useTexture([
+		"/textures/ground/aerial_rocks_02_diff_1k.jpg",
+		"/textures/ground/aerial_rocks_02_disp_1k.png",
+		"/textures/ground/aerial_rocks_02_rough_1k.jpg",
+		"/textures/ground/aerial_rocks_02_nor_gl_1k.png",
+	]);
+
+
+	const ambient = 2;
+
+	// console.log(womanTextureDiff);
 
 	return (
 		<group
@@ -51,9 +67,25 @@ export function Female(props: JSX.IntrinsicElements["group"]) {
 						castShadow
 						receiveShadow
 						geometry={nodes.defaultMaterial_1.geometry}
-						material={materials.Material_001}
+						// material={materials.Material_001}
 					>
-
+						<meshStandardMaterial
+							map={womanTextureDiff}
+							roughnessMap={womanTextureRough}
+							displacementMap={womanTextureDisp}
+							normalMap={womanNormalMap}
+							displacementScale={0.03}
+							displacementBias={0.01}
+							map-repeat={[5, 5]}
+							map-wrapS={THREE.RepeatWrapping}
+							map-wrapT={THREE.RepeatWrapping}
+							displacementMap-wrapS={THREE.RepeatWrapping}
+							displacementMap-wrapT={THREE.RepeatWrapping}
+							roughnessMap-wrapS={THREE.RepeatWrapping}
+							roughnessMap-wrapT={THREE.RepeatWrapping}
+							normalMap-wrapS={THREE.RepeatWrapping}
+							normalMap-wrapT={THREE.RepeatWrapping}
+						/>
 					</mesh>
 	
 				</group>

@@ -16,6 +16,7 @@
     "gl-transitions": "^1.43.0",
     "glslify": "^7.1.1",
     "leva": "^0.9.32",
+    "r3f-perf": "^6.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.145.0",

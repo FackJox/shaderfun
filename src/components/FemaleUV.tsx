@@ -23,11 +23,10 @@ type GLTFResult = GLTF & {
 	};
 };
 
-export function Female(props: JSX.IntrinsicElements["group"]) {
+export function FemaleUV(props: JSX.IntrinsicElements["group"]) {
 	const { nodes, materials } = useGLTF(
 		"female_marble_statue_polished_but_old.glb"
 	) as unknown as GLTFResult;
-
 
 
 	return (
@@ -51,9 +50,11 @@ export function Female(props: JSX.IntrinsicElements["group"]) {
 						castShadow
 						receiveShadow
 						geometry={nodes.defaultMaterial_1.geometry}
-						material={materials.Material_001}
+						// material={materials.Material_001}
 					>
-
+						<meshNormalMaterial
+		
+						/>
 					</mesh>
 	
 				</group>

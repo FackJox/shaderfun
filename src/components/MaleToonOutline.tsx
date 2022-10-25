@@ -10,6 +10,8 @@ import * as THREE from "three";
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import CartoonFragment from '../shaders/cartoon/fragment.glsl'
+import CartoonVertex from '../shaders/cartoon/vertex.glsl'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,7 +22,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Male(props: JSX.IntrinsicElements["group"]) {
+
+
+export function MaleToonOutline(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/male_human_a_pose.glb") as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -31,7 +35,7 @@ export function Male(props: JSX.IntrinsicElements["group"]) {
           geometry={nodes.Object_2.geometry}
           // material={materials.bubuaiStandardSurface1SG}
         >
-          <meshNormalMaterial />
+          <shaderMaterial vertexShader={CartoonVertex} fragmentShader={CartoonFragment} />
         </mesh>
       </group>
     </group>
