@@ -10,8 +10,8 @@ import * as THREE from "three";
 import React, { useRef } from "react";
 import { useGLTF, useTexture, shaderMaterial } from "@react-three/drei";
 import { useFrame, extend } from "@react-three/fiber";
-import TunnelFragment from "../shaders/tunnel/fragment.glsl";
-import TunnelVertex from "../shaders/tunnel/vertex.glsl";
+import ScrollingFragment from "../shaders/scrolling/fragment.glsl";
+import ScrollingVertex from "../shaders/scrolling/vertex.glsl";
 
 // type GLTFResult = GLTF & {
 //   nodes: {
@@ -28,8 +28,8 @@ const MaleShaderMaterial = shaderMaterial(
 		iChannel0: { type: "t", value: new THREE.Texture() },
 		iChannel1: { type: "t", value: new THREE.Texture() },
 	},
-	TunnelVertex,
-	TunnelFragment
+	ScrollingVertex,
+	ScrollingFragment
 );
 extend({ MaleShaderMaterial });
 
@@ -74,27 +74,14 @@ export function MaleShader(props) {
 						iChannel0={ceramicTexture}
 						iChannel0-wrapS={THREE.RepeatWrapping}
 						iChannel0-wrapT={THREE.RepeatWrapping}
+						iChannel0-repeat-set={[1000, 1000]}
 						iChannel1={colourfulWoodTexture}
 						iChannel1-wrapS={THREE.RepeatWrapping}
 						iChannel1-wrapT={THREE.RepeatWrapping}
+						iChannel1-repeat-set={[1000, 1000]}
 					/>
 				</mesh>
-				{/* <mesh
-					rotation={[Math.PI / 2, 0, 0]}
-					position={[250, 250, 200]}
-				>
-					<planeGeometry args={[700, 394, 1, 1]} />
-					<maleShaderMaterial
-						ref={maleShaderMaterialRef}
-						side={THREE.DoubleSide}
-						iChannel0={ceramicTexture}
-						iChannel0-wrapS={THREE.RepeatWrapping}
-						iChannel0-wrapT={THREE.RepeatWrapping}
-						iChannel1={colourfulWoodTexture}
-						iChannel1-wrapS={THREE.RepeatWrapping}
-						iChannel1-wrapT={THREE.RepeatWrapping}
-					/>
-				</mesh> */}
+	
 			</group>
 		</group>
 	);

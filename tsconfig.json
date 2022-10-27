@@ -28,7 +28,7 @@
   "include": [
       "**/*.ts",
       "**/*.tsx"
-, "src/components/MaleShader.jsx"  ],
+, "src/components/MaleShader.jsx", "src/components/Female.jsx"  ],
   "exclude": [
       "node_modules"
   ]
