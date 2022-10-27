@@ -46,11 +46,11 @@ export function MaleShader(props) {
 
 	useFrame((state, delta) => {
 		maleShaderMaterialRef.current.iGlobalTime += delta;
-    // console.log(maleShaderMaterialRef.current.iGlobalTime)
+		// console.log(maleShaderMaterialRef.current.iGlobalTime)
 	});
 
-  console.log(ceramicTexture)
-  console.log(colourfulWoodTexture)
+	console.log(ceramicTexture);
+	console.log(colourfulWoodTexture);
 
 	return (
 		<group
@@ -60,17 +60,26 @@ export function MaleShader(props) {
 			<group
 				rotation={[-Math.PI / 2, 0, 0]}
 				scale={0.01}
-				position={[-1, -1, 0]}
+				position={[1, -1, 0]}
 			>
-				{/* <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Object_2.geometry}
-          // material={materials.bubuaiStandardSurface1SG}
-        >
-          <shaderMaterial uniforms={uniforms} vertexShader={TunnelVertex} fragmentShader={TunnelFragment} side={THREE.DoubleSide} />
-        </mesh> */}
 				<mesh
+					castShadow
+					receiveShadow
+					geometry={nodes.Object_2.geometry}
+					// material={materials.bubuaiStandardSurface1SG}
+				>
+					<maleShaderMaterial
+						ref={maleShaderMaterialRef}
+						side={THREE.DoubleSide}
+						iChannel0={ceramicTexture}
+						iChannel0-wrapS={THREE.RepeatWrapping}
+						iChannel0-wrapT={THREE.RepeatWrapping}
+						iChannel1={colourfulWoodTexture}
+						iChannel1-wrapS={THREE.RepeatWrapping}
+						iChannel1-wrapT={THREE.RepeatWrapping}
+					/>
+				</mesh>
+				{/* <mesh
 					rotation={[Math.PI / 2, 0, 0]}
 					position={[250, 250, 200]}
 				>
@@ -85,8 +94,7 @@ export function MaleShader(props) {
 						iChannel1-wrapS={THREE.RepeatWrapping}
 						iChannel1-wrapT={THREE.RepeatWrapping}
 					/>
-					{/* <meshBasicMaterial color="purple" /> */}
-				</mesh>
+				</mesh> */}
 			</group>
 		</group>
 	);
