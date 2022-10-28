@@ -10,8 +10,8 @@ import * as THREE from "three";
 import { useRef } from "react";
 import { useGLTF, useTexture, shaderMaterial } from "@react-three/drei";
 import { useFrame, extend } from "@react-three/fiber";
-import TunnelFragment from "../shaders/tunnel/fragment.glsl";
-import TunnelVertex from "../shaders/tunnel/vertex.glsl";
+import VibrantFragment from "../shaders/vibrant/fragment.glsl";
+import VibrantVertex from "../shaders/vibrant/vertex.glsl";
 
 // type GLTFResult = GLTF & {
 // 	nodes: {
@@ -24,39 +24,34 @@ import TunnelVertex from "../shaders/tunnel/vertex.glsl";
 // 	};
 // };
 
-
-
-const FemaleEyeMaterial = shaderMaterial(
+const FemaleVibrantShaderMaterial = shaderMaterial(
 	{
 		iGlobalTime: 0,
-		iChannel0: { type: "t", value: new THREE.Texture() },
-		iChannel1: { type: "t", value: new THREE.Texture() },
+		// lightPos: new THREE.Vector3()
 	},
-	TunnelVertex,
-	TunnelFragment
+	VibrantVertex,
+	VibrantFragment
 );
-extend({ FemaleEyeMaterial });
+extend({ FemaleVibrantShaderMaterial });
 
-
-export function Female(props) {
+export function FemaleShader(props) {
 	const { nodes, materials } = useGLTF(
 		"female_marble_statue_polished_but_old.glb"
-	) 
+	);
 
-	const femaleEyeMaterialRef = useRef();
+	const femaleVibrantShaderMaterialRef = useRef();
 
-	const [ceramicTexture, colourfulWoodTexture] = useTexture([
-		"/textures/tiles/VintageRusticCeramicFloor_diffuseOriginal.jpg",
-		"/textures/colorfulwood/Colorful_Painted_Wood_Base_Color.jpg",
-	]);
+		// console.log(femaleVibrantShaderMaterialRef.current)
 
-	useFrame((state, delta) => {
-		femaleEyeMaterialRef.current.iGlobalTime += delta;
-		// console.log(maleShaderMaterialRef.current.iGlobalTime)
-	});
+	// useFrame((state, delta) => {
+	// 	femaleVibrantShaderMaterialRef.current.iGlobalTime += delta;
+	// 	// console.log(maleShaderMaterialRef.current.iGlobalTime)
+	// });
+	
+	const {lightPos}  = {...props}
 
-	console.log(femaleEyeMaterialRef.current)
-
+	console.log(lightPos)
+	console.log(props)
 	return (
 		<group
 			{...props}
@@ -72,47 +67,32 @@ export function Female(props) {
 						castShadow
 						receiveShadow
 						geometry={nodes.defaultMaterial.geometry}
-						// material={materials.Eye_brown}
-					>
-				<femaleEyeMaterial
-						ref={femaleEyeMaterialRef}
-						side={THREE.DoubleSide}
-						iChannel0={ceramicTexture}
-	
-						iChannel0-wrapS={THREE.RepeatWrapping}
-						iChannel0-wrapT={THREE.RepeatWrapping}
-						iChannel1={colourfulWoodTexture}
-						iChannel1-wrapS={THREE.RepeatWrapping}
-						iChannel1-wrapT={THREE.RepeatWrapping}
-					/>
-
-					</mesh>
+						material={materials.Eye_brown}
+					></mesh>
 					<mesh
 						castShadow
 						receiveShadow
 						geometry={nodes.defaultMaterial_1.geometry}
 						// material={materials.Material_001}
 					>
-						<meshStandardMaterial color={"black"} />
+						<femaleVibrantShaderMaterial
+							ref={femaleVibrantShaderMaterialRef}
+							side={THREE.DoubleSide}
+							lightPos={lightPos}
+						/>
 					</mesh>
-								{/* <mesh
+					<mesh
 					rotation={[0, 0, 0]}
 					position={[0, 0.75, -2]}
 				>
 					<planeGeometry args={[7, 3.94, 1, 1]} />
-					<femaleShaderMaterial
-						ref={femaleShaderMaterialRef}
+					{/* <femaleVibrantShaderMaterial
+						ref={femaleVibrantShaderMaterialRef}
 						side={THREE.DoubleSide}
-						iChannel0={ceramicTexture}
-						iChannel0-wrapS={THREE.RepeatWrapping}
-						iChannel0-wrapT={THREE.RepeatWrapping}
-						iChannel1={colourfulWoodTexture}
-						iChannel1-wrapS={THREE.RepeatWrapping}
-						iChannel1-wrapT={THREE.RepeatWrapping}
-					/>
+						lightPos={lightPos}
+					/> */}
 					<meshBasicMaterial color="orange" />
-				</mesh> */}
-	
+				</mesh>
 				</group>
 			</group>
 		</group>
