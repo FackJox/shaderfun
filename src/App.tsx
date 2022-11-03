@@ -32,7 +32,7 @@
 								<OrbitControls />
 								{/* <FemaleGround position={[1, 0, 0]} />
 								<FemaleUV position={[2, 0, 0]} /> */}
-								<Female position={[0, 0, 0]} />
+								{/* <Female position={[0, 0, 0]} /> */}
 								<FemaleShader position={[-1, 0, 0]} lightPos={lightPos}/>
 								{/* <MaleToonOutline position={[-2, 0, 0]}/> */}
 								{/* <MaleShader position={[-5, 0, 0]} />

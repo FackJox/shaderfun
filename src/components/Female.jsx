@@ -55,7 +55,7 @@ export function Female(props) {
 		// console.log(maleShaderMaterialRef.current.iGlobalTime)
 	});
 
-	console.log(femaleEyeMaterialRef.current)
+	// console.log(femaleEyeMaterialRef.current)
 
 	return (
 		<group

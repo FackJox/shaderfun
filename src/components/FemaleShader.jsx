@@ -9,10 +9,11 @@ title: Female Marble Statue (Polished but old)
 import * as THREE from "three";
 import { useRef } from "react";
 import { useGLTF, useTexture, shaderMaterial } from "@react-three/drei";
-import { useFrame, extend } from "@react-three/fiber";
+import { useFrame, extend, useThree } from "@react-three/fiber";
 import VibrantFragment from "../shaders/vibrant/fragment.glsl";
 import VibrantVertex from "../shaders/vibrant/vertex.glsl";
-
+import abstractTexture from "/abstract.jpg"
+console.log(abstractTexture)
 // type GLTFResult = GLTF & {
 // 	nodes: {
 // 		defaultMaterial: THREE.Mesh;
@@ -26,8 +27,10 @@ import VibrantVertex from "../shaders/vibrant/vertex.glsl";
 
 const FemaleVibrantShaderMaterial = shaderMaterial(
 	{
-		iGlobalTime: 0,
-		// lightPos: new THREE.Vector3()
+		uTime: 0,
+		lightPos: new THREE.Vector3(),
+		abstractTexture: new THREE.TextureLoader().load(abstractTexture),
+		cameraPosition: new THREE.Vector3(),
 	},
 	VibrantVertex,
 	VibrantFragment
@@ -35,6 +38,10 @@ const FemaleVibrantShaderMaterial = shaderMaterial(
 extend({ FemaleVibrantShaderMaterial });
 
 export function FemaleShader(props) {
+	
+	const camera = useThree((state) => state.camera);
+	console.log("camera pos", camera);
+
 	const { nodes, materials } = useGLTF(
 		"female_marble_statue_polished_but_old.glb"
 	);
@@ -43,10 +50,10 @@ export function FemaleShader(props) {
 
 		// console.log(femaleVibrantShaderMaterialRef.current)
 
-	// useFrame((state, delta) => {
-	// 	femaleVibrantShaderMaterialRef.current.iGlobalTime += delta;
-	// 	// console.log(maleShaderMaterialRef.current.iGlobalTime)
-	// });
+	useFrame((state, delta) => {
+		femaleVibrantShaderMaterialRef.current.uTime += delta;
+		femaleVibrantShaderMaterialRef.current.cameraPosition = camera.position;
+	});
 	
 	const {lightPos}  = {...props}
 
@@ -79,6 +86,7 @@ export function FemaleShader(props) {
 							ref={femaleVibrantShaderMaterialRef}
 							side={THREE.DoubleSide}
 							lightPos={lightPos}
+							// abstractTexture={abstractTexture}
 						/>
 					</mesh>
 					<mesh
