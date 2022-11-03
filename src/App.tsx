@@ -30,15 +30,15 @@
 
 							<Suspense fallback={null}>
 								<OrbitControls />
-								{/* <FemaleGround position={[1, 0, 0]} />
-								<FemaleUV position={[2, 0, 0]} /> */}
-								{/* <Female position={[0, 0, 0]} /> */}
+								<FemaleGround position={[1, 0, 0]} />
+								<FemaleUV position={[2, 0, 0]} />
+								<Female position={[0, 0, 0]} />
 								<FemaleShader position={[-1, 0, 0]} lightPos={lightPos}/>
 								{/* <MaleToonOutline position={[-2, 0, 0]}/> */}
-								{/* <MaleShader position={[-5, 0, 0]} />
+								<MaleShader position={[-5, 0, 0]} />
 								<Male />
 								<MalePebbles position={[-2, 0, 0]}/>
-								<MaleTribal position={[-1, 0, 0]}/> */}
+								<MaleTribal position={[-1, 0, 0]}/>
 								<ambientLight intensity={0.2} />
 								<directionalLight
 									castShadow
